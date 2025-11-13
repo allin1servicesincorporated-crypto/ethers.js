@@ -1,0 +1,6 @@
+uint256 amount = 10000 ether;
+vm.startBroadcast();
+for (uint i = 0; i < addrs.length; i++) {
+  payable(addrs[i]).transfer(amount);
+}
+vm.stopBroadcast();
