@@ -1,0 +1,25 @@
+fund-wallets.js:
+ // fund-wallets.js (ethers v6)
+ import fs from "fs";
+ import { JsonRpcProvider, Wallet, parseEther } from "ethers";
+ const RPC = process.env.RPC ?? "http://127.0.0.1:8545";
+ const FUND_PK = process.env.FUND_PRIVATE_KEY;
+ if (!FUND_PK) { console.error("Set FUND_PRIVATE_KEY env var"); process.exit(1); }
+ const provider = new JsonRpcProvider(RPC);
+ const funder = new Wallet(FUND_PK, provider);
+ (async () => {
+ const wallets = JSON.parse(fs.readFileSync("wallets.json", "utf8"));
+ const amount = parseEther("10000");
+ console.log("Funder:", funder.address, "balance:", (await provider.getBalance(funder.address)).toString());
+ for (const w of wallets) {
+ console.log("Sending 10000 ETH to", w.address);
+ const tx = await funder.sendTransaction({ to: w.address, value: amount });
+ console.log("tx:", tx.hash);
+ await tx.wait();
+ }
+ console.log("Funding complete. Verifying balances:");
+ for (const w of wallets) {
+ const b = await provider.getBalance(w.address);
+ console.log(w.address, "=", b.toString());
+ }
+ })().catch(e => { console.error(e); process.exit(1); });
