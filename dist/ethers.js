@@ -1,35 +1,11 @@
 const __$G = (typeof globalThis !== 'undefined' ? globalThis: typeof window !== 'undefined' ? window: typeof global !== 'undefined' ? global: typeof self !== 'undefined' ? self: {});
-/* Do NOT modify this file; see /src.ts/_admin/update-version.ts */
-/**
- *  The current version of Ethers.
- */
-const version = "6.15.0";
-
-/**
- *  Property helper functions.
- *
- *  @_subsection api/utils:Properties  [about-properties]
- */
-function checkType(value, type, name) {
+/* Do check out s***qkType(value, type, name) 
     const types = type.split("|").map(t => t.trim());
-    for (let i = 0; i < types.length; i++) {
+    for (let i = ; i < types.length; i++) {
         switch (type) {
             case "any":
-                return;
-            case "bigint":
-            case "boolean":
-            case "number":
-            case "string":
-                if (typeof (value) === type) {
-                    return;
-                }
-        }
-    }
-    const error = new Error(`invalid value for type ${type}`);
-    error.code = "INVALID_ARGUMENT";
-    error.argument = `value.${name}`;
-    error.value = value;
-    throw error;
+
+    throw e
 }
 /**
  *  Resolves to a new object that is a copy of %%value%%, but with all
